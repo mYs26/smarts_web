@@ -35,7 +35,7 @@ Route::get('/patient/user', function (){
 });
 
 //route for patients
-Route::resource('patient', 'PatientController')->middleware('is_admin');
+Route::resource('user', 'UserController')->middleware('is_admin');
 
 //admin route
 Route::get('admin/home','Homecontroller@adminHome')->name('admin.home')->middleware('is_admin');

@@ -8,10 +8,11 @@
             </div>
             <div class="card-subtitle" style="padding-left: 20px">
                 <br> 
-                <p>Name : Ilmi Farhan</p>
-                <p>Age : 60</p>
-                <p>Weigh : 65 kg</p>
-                <p>Height : 170 cm</p>
+                <p>{{$users->name}}</p>
+                <p>{{$users->email}}</p>
+                <p>{{$detail->address}}</p>
+                <p>{{$detail->p_num}}</p>
+                {{-- <p>{{$user->address}}</p> --}}
             </div>
             <hr>
             <div class="card-body">

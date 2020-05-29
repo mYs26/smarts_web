@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
-class PatientController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,12 @@ class PatientController extends Controller
      */
     public function index()
     {
+        $users = User::where('is_admin', 0)->get();
+
+        // dd($user);
         //go to patient list
-        return view('patient.index');
+        return view('user.index')->with('users', $users);
+        // return User::find(1)->detail;
     }
 
     /**
@@ -47,6 +52,12 @@ class PatientController extends Controller
     public function show($id)
     {
         //
+        // $foodLibrary = foodLibrary::where('food_id', $id)->first();
+        // return view('foodLibrary.show')->with('food', $foodLibrary);
+        $users = User::find($id);
+        $detail = User::find($id)->detail;
+        // dd($users);
+        return view('user.show',compact('users', 'detail'));
     }
 
     /**

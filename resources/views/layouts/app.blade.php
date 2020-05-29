@@ -32,7 +32,7 @@
                     <a class="navbar-brand" style="font-size: small" href="/foodLibrary">
                         Food Library
                     </a>
-                    <a class="navbar-brand" style="font-size: small" href="/patient">
+                    <a class="navbar-brand" style="font-size: small" href="/user">
                         User Assessment
                     </a>
                 @endif
