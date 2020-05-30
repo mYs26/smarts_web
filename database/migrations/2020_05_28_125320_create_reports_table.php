@@ -15,8 +15,6 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('patient_id');
-            $table->bigInteger('doctor_id');
             $table->string('diagnosis_type');
             $table->longText('report_summary');
             $table->float('weight');

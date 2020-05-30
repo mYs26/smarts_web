@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\FoodLibrary;
+use App\Food;
 
-class FoodLibraryController extends Controller
+class FoodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,10 @@ class FoodLibraryController extends Controller
      */
     public function index()
     {
-        // $foods = foodsLibrary::orderBy('food_name','asc')->paginate(10);
-        // return view('foodsLibrary.index')->with('foods', $foods);
-        $foodLibrary = foodLibrary::orderBy('food_name','asc')->paginate(10);
-        return view ('foodLibrary.index')->with('foods', $foodLibrary);
+        //list all data
+        $foodLibrary = food::orderBy('food_name','asc')->paginate(10);
+        return view ('food.index')->with('foods', $foodLibrary);
+
     }
 
     /**
@@ -27,7 +27,8 @@ class FoodLibraryController extends Controller
      */
     public function create()
     {
-        return view ('foodLibrary.create');
+        //go to create data page
+        return view ('food.create');
     }
 
     /**
@@ -38,7 +39,7 @@ class FoodLibraryController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
         $this->validate($request, [
             'food_name' => 'required',
             'food_image' => 'image|required|max:1999',
@@ -70,7 +71,7 @@ class FoodLibraryController extends Controller
         $path = $request->file('food_image')->storeAs('public/food_image',$fileNameToStore);
 
 
-        $foodLibrary = new FoodLibrary;
+        $foodLibrary = new Food;
 
         $foodLibrary->food_name = request('food_name');
         $foodLibrary->food_image = $fileNameToStore;
@@ -91,7 +92,7 @@ class FoodLibraryController extends Controller
 
         $foodLibrary->save();
 
-        return redirect('/foodLibrary')->with('success', 'Food Data entered');
+        return redirect('/food')->with('success', 'Food Data entered');
     }
 
     /**
@@ -102,11 +103,9 @@ class FoodLibraryController extends Controller
      */
     public function show($id)
     {
-        //
-        // $foods = foodsLibrary::where('food_id', $id)->first();
-        // return view('foodsLibrary.show', compact('foods'));
-        $foodLibrary = foodLibrary::where('food_id', $id)->first();
-        return view('foodLibrary.show')->with('food', $foodLibrary);
+        //show specific food data
+        $foodLibrary = food::findOrFail($id);
+        return view('food.show')->with('food', $foodLibrary);
     }
 
     /**
@@ -118,8 +117,8 @@ class FoodLibraryController extends Controller
     public function edit($id)
     {
         //
-        $foodLibrary = foodLibrary::where('food_id', $id)->first();
-        return view('foodLibrary.edit')->with('food', $foodLibrary);
+        $foodLibrary = food::findOrfail($id);
+        return view('food.edit')->with('food', $foodLibrary);
     }
 
     /**
@@ -131,7 +130,7 @@ class FoodLibraryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //edit update data
         $this->validate($request, [
             'food_name' => 'required',
             'food_image' => 'image|max:1999',
@@ -163,7 +162,7 @@ class FoodLibraryController extends Controller
             //upload the image
             $path = $request->file('food_image')->storeAs('public/food_image',$fileNameToStore);
         } else {
-            $anime = foodLibrary::find($id);
+            $anime = food::find($id);
             $adik = $anime->food_image;
             $fileNameToStore = $adik;
         }
@@ -171,7 +170,7 @@ class FoodLibraryController extends Controller
         
 
 
-        $foodLibrary = foodLibrary::find($id);
+        $foodLibrary = food::find($id);
 
         $foodLibrary->food_name = request('food_name');
         $foodLibrary->food_image = $fileNameToStore;
@@ -192,7 +191,7 @@ class FoodLibraryController extends Controller
 
         $foodLibrary->save();
 
-        return redirect('/foodLibrary')->with('sucess', 'data updated');
+        return redirect('/food')->with('sucess', 'data updated');
     }
 
     /**
@@ -203,10 +202,10 @@ class FoodLibraryController extends Controller
      */
     public function destroy($id)
     {
-
-        $foodLibrary = foodLibrary::findOrFail($id);
+        //delete specific data
+        $foodLibrary = food::findOrFail($id);
         $foodLibrary->delete();
 
-        return redirect ('/foodLibrary')->with('message','Food Deleted');
+        return redirect ('/food')->with('message','Food Deleted');
     }
 }

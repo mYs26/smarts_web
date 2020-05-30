@@ -26,15 +26,15 @@
                               <img style="width:50%" src="/storage/food_image/{{$food->food_image}}" alt="food image">
                             </div>
                             <div class="col-md-8 col-sm-8">
-                              <a href="/foodLibrary/{{$food->food_id}}">{{$food->food_name}}</a> <p  style="font-size: small">{{$food->food_type}}</p>
+                              <a href="/food/{{$food->id}}">{{$food->food_name}}</a> <p  style="font-size: small">{{$food->food_type}}</p>
                             </div>
                           </div>
                           
                         </td>
                         <td style="text-align: right">
-                          <a href="/foodLibrary/{{$food->food_id}}/edit" class="btn btn-success">Edit</a>
+                          <a href="/food/{{$food->id}}/edit" class="btn btn-success">Edit</a>
                           <br> <br>
-                          <form action="/foodLibrary/{{ $food->food_id }}" method="post">
+                          <form action="/food/{{ $food->id }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button class="btn-danger">Delete</button>

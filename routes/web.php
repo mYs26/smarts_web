@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 //welcome page
 Route::get('/', function () {
     return view('welcome');
+    // $user = \App\User::first();
+    // $report= \App\Report::all();
+
+    // $user->reports()->sync([
+    //     1 => [
+    //         'doctor_name' => 'Amir Farhan'
+    //     ]
+    // ]);
+
+    // // dd($food);
 });
 
 
@@ -22,10 +32,15 @@ Route::get('/', function () {
 //     return view('foodLibrary.create');
 // });
 
+//food routes
+Route::resource('food', 'FoodController')->middleware('is_admin');
+
 //foodLibrary route
-Route::resource('foodLibrary', 'FoodLibraryController')->middleware('is_admin');
+// Route::resource('foodLibrary', 'FoodLibraryController')->middleware('is_admin');
+
 //auth route web
 Auth::routes();
+
 //home page
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 

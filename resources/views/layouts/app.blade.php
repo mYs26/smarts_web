@@ -29,7 +29,7 @@
                     Smarts D4D
                 </a>
                 @if (Auth::user())
-                    <a class="navbar-brand" style="font-size: small" href="/foodLibrary">
+                    <a class="navbar-brand" style="font-size: small" href="/food">
                         Food Library
                     </a>
                     <a class="navbar-brand" style="font-size: small" href="/user">

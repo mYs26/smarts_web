@@ -42,4 +42,14 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Detail');
     }
+
+    public function foods()
+    {
+        return $this->belongsToMany('App\Food');
+    }
+
+    public function reports()
+    {
+        return $this->belongsToMany('App\Report');
+    }
 }

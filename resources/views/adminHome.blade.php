@@ -22,7 +22,7 @@
     </div>
     <div class="homediv">
         <a href="/patient" id="button1">patient Assessment</a>
-        <a href="/foodLibrary" id="button2">Food Library</a>
+        <a href="/food" id="button2">Food Library</a>
     </div>
     
 </div>
