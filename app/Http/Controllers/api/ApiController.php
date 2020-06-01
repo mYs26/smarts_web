@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Food;
 use App\User;
+use App\Report;
 
 class ApiController extends Controller
 {
@@ -19,36 +20,49 @@ class ApiController extends Controller
     }
 
     //report assessment api
-    // public function patientReport (Request $request) 
-    // {
-    //     //validator input
-    //     $request->validate([
-    //         'name' => 'required|string',
-    //         // 'is_admin' => 'required|boolean',
-    //         'email' => 'required|string|email|unique:users',
-    //         'password' => 'required|string',
-    //         'address' => 'required',
-    //         'p_num' => 'required'
-    //     ]);
-    //     $user = new User;
-    //     $user->name = $request->name;
-    //     $user->is_admin = false;
-    //     $user->email = $request->email;
-    //     $user->password = bcrypt($request->password);
-
-    //     $detail = new Detail;
-    //     $detail->address = $request->address;
-    //     $detail->p_num = $request->p_num;
-    //     // $user->detail()->address = $request->address;
-    //     // $user->detail()->p_num = $request->p_num;
-    //     $user->save();
-    //     $user->detail()->save($detail);
+    public function patientReport (Request $request) 
+    {
+        //validator input
+        // $request->validate([
+        //     'user_id' => 'required',
+        //     'doctor_name' => 'required|string',
+        //     'weight' => 'required',
+        //     'height' => 'required'
+        // ]);
         
+        $doctor = $request->user()->name;
 
-    //     return response()->json([
-    //         'message' => 'Successfully created user!'
-    //     ], 201);
-    // }
+        $w = $request->weight;
+        $h = $request->height / 100;
+        $abah = $h*$h;
+        $umi = $w/$abah;
+
+        $report = new Report;
+        $report->user_id = $request->user_id;
+        $report->diagnosis_type = $request->diagnosis_type;
+        $report->report_summary = $request->report_summary;
+        $report->weight = $request->weight;
+        $report->height = $request->height;
+        $report->BMI = $umi;
+        $report->interdialytic_weight = $request->interdialytic_weight;
+        $report->dry_weight = $request->dry_weight;
+        $report->creatinine = $request->creatinine;
+        $report->urea = $request->urea;
+        $report->potassium = $request->potassium;
+        $report->sodium = $request->sodium;
+        $report->phosphate = $request->phosphate;
+        $report->urine_analysis = $request->urine_analysis;
+        $report->bp = $request->bp;
+        $report->ktv = $request->ktv;
+        $report->doctor_name = $doctor;
+
+        $report->save();
+        // return response()->json($request->user());
+        // return response()->json($umi);
+        return response()->json([
+            'message' => 'Successfully created a report!'
+        ], 201);
+    }
 
     //user diet entry
     public function userDiet (Request $request)

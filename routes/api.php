@@ -30,5 +30,6 @@ Route::group([
         Route::get('user', 'Auth\AuthController@user');
         Route::get('foodlist', 'api\ApiController@foodList');
         Route::post('userdiet', 'api\ApiController@userDiet');
+        Route::post('patientreport', 'api\ApiController@patientReport');
     });
 });
