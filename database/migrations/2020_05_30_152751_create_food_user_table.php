@@ -17,6 +17,7 @@ class CreateFoodUserTable extends Migration
             $table->id();
             $table->unsignedBigInteger('food_id');
             $table->unsignedBigInteger('user_id');
+            $table->float('intake_amount');
             $table->timestamps();
         });
     }

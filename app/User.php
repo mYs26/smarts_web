@@ -45,11 +45,11 @@ class User extends Authenticatable
 
     public function foods()
     {
-        return $this->belongsToMany('App\Food');
+        return $this->belongsToMany('App\Food')->withTimestamps();
     }
 
     public function reports()
     {
-        return $this->belongsToMany('App\Report');
+        return $this->hasmany('App\Report');
     }
 }

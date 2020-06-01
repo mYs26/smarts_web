@@ -28,5 +28,7 @@ Route::group([
     ], function() {
         Route::get('logout', 'Auth\AuthController@logout');
         Route::get('user', 'Auth\AuthController@user');
+        Route::get('foodlist', 'api\ApiController@foodList');
+        Route::post('userdiet', 'api\ApiController@userDiet');
     });
 });

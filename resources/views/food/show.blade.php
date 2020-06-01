@@ -12,7 +12,10 @@
             </div>
             <div class="card-body">
                 <div style="text-align: center; padding:20px;">
-                    <img src="/storage/food_image/{{$food->food_image}}" alt="food image">
+                    <div >
+                        <img src="/storage/food_image/{{$food->food_image}}" alt="food image" style="width:25em; height:25em;">
+                    </div>
+                    
                 </div>
                 <div style="padding-left: 15%" class="wrapper">
                     <p>Measurement Type : {{$food->measurement_type}}</p>

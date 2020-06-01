@@ -15,6 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('diagnosis_type');
             $table->longText('report_summary');
             $table->float('weight');
@@ -30,6 +31,7 @@ class CreateReportsTable extends Migration
             $table->longText('urine_analysis');
             $table->float('bp');
             $table->float('ktv');
+            $table->string('doctor_name');
             $table->timestamps();
         });
     }
