@@ -10,4 +10,9 @@ class Detail extends Model
     
     // protected $table='details';
     //
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

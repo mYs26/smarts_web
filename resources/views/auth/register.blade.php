@@ -40,7 +40,7 @@
                         </div>
 
                         {{-- admin previledge --}}
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="is_admin" class="col-md-4 col-form-label text-md-right">User Previledge </label>
                             <div class="col-md-6">
                                 <select name="is_admin" id="is_admin">
@@ -60,7 +60,7 @@
                                     </span>
                                 @enderror
                             </div> --}}
-                        </div>
+                        {{-- </div> --}}
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

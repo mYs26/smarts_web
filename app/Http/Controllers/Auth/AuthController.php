@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Detail;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -45,14 +46,25 @@ class AuthController extends Controller
             'name' => 'required|string',
             // 'is_admin' => 'required|boolean',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'address' => 'required',
+            'p_num' => 'required'
         ]);
         $user = new User;
         $user->name = $request->name;
         $user->is_admin = false;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+
+        $detail = new Detail;
+        $detail->address = $request->address;
+        $detail->p_num = $request->p_num;
+        // $user->detail()->address = $request->address;
+        // $user->detail()->p_num = $request->p_num;
         $user->save();
+        $user->detail()->save($detail);
+        
+
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
