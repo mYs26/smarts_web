@@ -208,4 +208,13 @@ class FoodController extends Controller
 
         return redirect ('/food')->with('message','Food Deleted');
     }
+
+    //search function
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $foods = Food::where('food_name', 'like', '%'.$search.'%')->paginate(5);
+        return view ('food.index', ['foods' => $foods]);
+    }
+
 }

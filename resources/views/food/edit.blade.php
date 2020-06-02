@@ -2,15 +2,17 @@
 
 @section('content')
     <div class="container">
-        {{-- @extends('layouts.sidebarFoodLib') --}}
         <div class="card">
             <div class="card-header">
                 <p>Create a New Food</p>
             </div>
             <div class="card-subtitle">
-                <p class="text-danger" style="text-align: center; padding-top:10px">
-                    <img style="width:50%" src="/storage/food_image/{{$food->food_image}}" alt="food image">
-                </p>
+                <div style="text-align: center; padding:20px;">
+                    <div >
+                        <img src="/storage/food_image/{{$food->food_image}}" alt="food image" style="width:25em; height:25em;">
+                    </div>
+                    
+                </div>
             </div>
             <div class="card-body">
                 <form action="/food/{{ $food->id }}" method="post" enctype="multipart/form-data">

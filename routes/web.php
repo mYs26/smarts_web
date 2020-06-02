@@ -15,28 +15,10 @@ use Illuminate\Support\Facades\Route;
 //welcome page
 Route::get('/', function () {
     return view('welcome');
-    // $user = \App\User::first();
-    // $report= \App\Report::all();
-
-    // $user->reports()->sync([
-    //     1 => [
-    //         'doctor_name' => 'Amir Farhan'
-    //     ]
-    // ]);
-
-    // // dd($food);
 });
-
-
-// Route::get('/create', function () {
-//     return view('foodLibrary.create');
-// });
 
 //food routes
 Route::resource('food', 'FoodController')->middleware('is_admin');
-
-//foodLibrary route
-// Route::resource('foodLibrary', 'FoodLibraryController')->middleware('is_admin');
 
 //auth route web
 Auth::routes();
@@ -44,13 +26,17 @@ Auth::routes();
 //home page
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-//test 
-Route::get('/patient/user', function (){
-    return view('patient.show');
-});
-
 //route for patients
 Route::resource('user', 'UserController')->middleware('is_admin');
 
 //admin route
-Route::get('admin/home','Homecontroller@adminHome')->name('admin.home')->middleware('is_admin');
+Route::get('admin/home','HomeController@adminHome')->name('admin.home')->middleware('is_admin');
+
+//report show
+Route::get('/user/{user_id}/{report_id}', 'UserController@showReport')->middleware('is_admin');
+
+//search bar food
+Route::get('/search', 'FoodController@search')->middleware('is_admin');
+
+//search bar user
+Route::get('/search', 'UserController@search')->middleware('is_admin');

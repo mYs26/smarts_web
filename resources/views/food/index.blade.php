@@ -2,24 +2,35 @@
 
 @section('content')
     <div class="container">
-      {{-- @extends('layouts.sidebarFoodLib') --}}
         <div class="content-wrap">
             <h2 style="text-align: center">Food Library List</h2>
-            <div style="text-align: center">
-              <input type="text" name="search" placeholder="Search..." style="text-align: center">
-              
+            <div>
+              <div class="col-md-4" style="float: left">
+                <form action="/search" method="GET">
+                  <div class="input-group">
+                    <input type="search" name="search" class="form-control">
+                    <span class="input-group-prepend">
+                      <button type="submit" class="btn btn-primary">Search</button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+              <div style="float: right">
+                <a href="/food/create" class="btn btn-primary">Create New Food</a>
+              </div>
             </div>
-            <br>
+            
+            <br> <br>
             @if (count($foods) > 0)
-                    <table /*id="customers"*/ class="table">
+                    <table class="table">
                       <tr>
                         <th>No</th>
                         <th>Foods</th>
                         <th style="text-align: right">Action</th>
                       </tr>
-                      @foreach ($foods as $food)
+                      @foreach ($foods as $index => $food)
                       <tr>
-                        <td>1</td>
+                        <td>{{ $index +1 }}</td>
                         <td>
                           <div class="row">
                             <div class="col-md-4 col-sm-4">

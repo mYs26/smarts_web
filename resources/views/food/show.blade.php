@@ -5,7 +5,6 @@
         <p>create new food ...</p>
     </div> --}}
     <div class="container">
-        @extends('layouts.sidebarFoodLib')
         <div class="card">
             <div class="card-header">
                 <p>{{$food->food_name}}</p>
@@ -35,9 +34,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="/foodLibrary/{{$food->food_id}}/edit" class="btn btn-success">Edit</a>
+                <a href="/food/{{$food->id}}/edit" class="btn btn-success">Edit</a>
                 <hr>
-                <form action="/foodLibrary/{{ $food->food_id }}" method="post">
+                <form action="/food/{{ $food->id }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn-danger">Delete Food Data</button>

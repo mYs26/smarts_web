@@ -56,8 +56,11 @@ class UserController extends Controller
         // return view('foodLibrary.show')->with('food', $foodLibrary);
         $users = User::find($id);
         $detail = User::find($id)->detail;
+        $report = User::find($id)->reports()->orderBy('created_at', 'desc')->get();
+        // $report->orderBy('created_at', DESC)->get();
+        // return response()->json($report);
         // dd($users);
-        return view('user.show',compact('users', 'detail'));
+        return view('user.show',compact('users', 'detail','report'));
     }
 
     /**
@@ -92,5 +95,22 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //show user report
+    public function showReport($user_id, $report_id) 
+    {
+        $patient = User::find($user_id);
+        $data = User::find($user_id)->reports()->where('id', $report_id)->first();
+        // dd($patient);
+        return view ('user.report', compact('patient', 'data'));
+    }
+
+    //search function
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $users = User::where('name', 'like', '%'.$search.'%')->paginate(5);
+        return view ('user.index', ['users' => $users]);
     }
 }
