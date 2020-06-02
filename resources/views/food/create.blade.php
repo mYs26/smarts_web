@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <div class="flex-center position-ref full-height">
-        <p>create new food ...</p>
-    </div> --}}
     <div class="container">
-        @extends('layouts.sidebarFoodLib')
         <div class="card">
             <div class="card-header">
                 <p>Create a New Food</p>
