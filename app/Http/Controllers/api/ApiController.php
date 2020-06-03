@@ -75,14 +75,32 @@ class ApiController extends Controller
         $user_id = $request->user()->id;
         
         $user = User::where('id', $user_id)->first();
+        
+        $intake = $request->intake_amount;
+        $food = Food::where('id', $request->food_id)->first();
+
+        $energy = $food->energy_kcal * $intake;
+        $fluid = $food->water_g * $intake;
+        $protein = $food->protein_g * $intake;
+        $potassium = $food->k_mg * $intake;
+        $phosphate = $food->p_mg * $intake;
+        $sodium = $food->na_mg * $intake;
 
         $user->foods()->attach([
-            $request->food_id => [
-                'intake_amount' => $request->intake_amount
+            $food->id => [
+                'intake_amount' => $intake,
+                'energy' => $energy,
+                'protein' => $protein,
+                'fluid' => $fluid,
+                'potassium' => $potassium,
+                'phosphate' => $phosphate,
+                'sodium' => $sodium
             ]
         ]);
 
-        return response()->json($user);
+        return response()->json([
+            'message' => 'Successfully updated diet!'
+        ], 201);
         
 
     }

@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function foods()
     {
-        return $this->belongsToMany('App\Food')->withTimestamps();
+        return $this->belongsToMany('App\Food')->withPivot('intake_amount', 'energy', 'protein', 'fluid', 'potassium', 'phosphate', 'sodium')->withTimestamps();
     }
 
     public function reports()

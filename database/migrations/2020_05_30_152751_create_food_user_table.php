@@ -18,6 +18,12 @@ class CreateFoodUserTable extends Migration
             $table->unsignedBigInteger('food_id');
             $table->unsignedBigInteger('user_id');
             $table->float('intake_amount');
+            $table->float('energy');
+            $table->float('protein');
+            $table->float('fluid');
+            $table->float('potassium');
+            $table->float('phosphate');
+            $table->float('sodium');
             $table->timestamps();
         });
     }
