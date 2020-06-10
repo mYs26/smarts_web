@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Food;
 use App\User;
 use App\Report;
+use Carbon\Carbon;
 
 class ApiController extends Controller
 {
@@ -104,4 +105,30 @@ class ApiController extends Controller
         
 
     }
+
+    public function userDietList (Request $request)
+    {
+        $user = $request->user();
+        foreach ($user->foods as $food) {
+            $s = $food->pivot->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
+            $a = $s->where('user_id', $user->id);
+        }
+        //return all the food that taken that day
+        return response()->json($a);
+    }
+
+    public function deleteUserDiet (Request $request) {
+
+        $request->validate([
+            'foodL_id' => 'required',
+        ]);
+        $user = $request->user();
+        $fd = $request->foodL_id;
+        $user->foods()->wherePivot('id', '=', $fd)->detach();
+
+        return response()->json([
+            'message' => 'Successfully deleted diet!'
+        ], 201);
+    }
+
 }

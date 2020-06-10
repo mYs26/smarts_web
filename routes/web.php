@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
+use App\Food;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
