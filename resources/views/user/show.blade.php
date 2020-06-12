@@ -17,8 +17,8 @@
             <hr>
             <div class="card-body">
                 <div class="clearfix">
-                    <div id="chartol" class="box"></div>
-                    <div class="box">calendar</div>
+                    <div id="chartol" ></div>
+                    
                 </div>
                 
 
@@ -45,7 +45,7 @@
 
 <script>
     //nanti dalam ni hg declare satu variable nama data 
-    var user =  {!! json_encode($users->toArray()) !!}; //pastu guna cara ni nk passing
+    var user =  {!! $dataG !!}; //pastu guna cara ni nk passing
     console.log("test:",user)
     Highcharts.chart('chartol', {
         chart: {
@@ -71,8 +71,9 @@
         },
         yAxis: {
             min: 0,
+            max: 100,
             title: {
-                text: 'Rainfall (mm)'
+                text: 'Percentage (%)'
             }
         },
         tooltip: {
@@ -89,31 +90,7 @@
                 borderWidth: 0
             }
         },
-        series: [{ //just tukar series : data
-            name: 'Sodium',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 105.0]
-
-        }, {
-            name: 'Phosphate',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0]
-
-        }, {
-            name: 'Fluid',
-            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0]
-
-        }, {
-            name: 'Potassium',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4]
-
-        }, {
-            name: 'Protein',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4]
-
-        }, {
-            name: 'Calorie',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4]
-
-        }]
+        series: user
     });
 </script>
 @endsection

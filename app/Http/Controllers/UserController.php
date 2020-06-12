@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -114,19 +115,80 @@ class UserController extends Controller
         return view ('user.index', ['users' => $users]);
     }
 
-    public function graphData(Request $request)
+    public function graphData($id)
     {
-        $user = User::find(2);
+        // $user = User::find($id);
+        $users = User::find($id);
+        $detail = User::find($id)->detail;
+        $report = User::find($id)->reports()->orderBy('created_at', 'desc')->get();
+        
         $date = Carbon::today()->subDays(7);
-        foreach($user->foods as $food) {
+        $all = array();
+        foreach($users->foods as $food) {
             $all = $food->pivot
                         ->where('created_at', '>', $date)
-                        ->where('user_id', $user->id)
+                        ->where('user_id', $users->id)
                         ->get()
-                        ->groupBy(function($date) {
-                            return Carbon::parse($date->created_at)->format('d'); // grouping by days
-                        });
+                        ->groupBy(function($tarikh) {
+                            return Carbon::parse($tarikh->created_at)->format('d'); // grouping by days
+                        })->toArray();
         }
-        dd($all);
+        $sodium = array();
+        $potassium = array();
+        $phosphate = array();
+        $protein = array();
+        $energy = array();
+        $fluid = array();
+
+        //loop hari
+        foreach($all as $test){
+        //loop makanan dalam sehari
+        //temp var utk nk tmbah 
+        $tsodium = 0;
+        $tpotassium = 0;
+        $tphosp = 0;
+        $tprotein = 0;
+        $tenergy = 0;
+        $tfluid = 0;
+            foreach($test as $tust){
+                //dapat makanan
+                $tsodium += $tust['sodium'];
+                $tpotassium += $tust['potassium'];
+                $tphosp += $tust['phosphate'];
+                $tprotein += $tust['protein'];
+                $tenergy += $tust['energy'];
+                $tfluid += $tust['fluid'];
+            }
+            //dekat sini kita dpt total something dlm sehari 
+            // % = (n / total)*100
+            //dptkn weight fromr report latest
+            $reportW = $users->reports()->orderBy('created_at', 'desc')->first();
+            $weight = $reportW->weight;
+            $weight1 = $weight * 35;
+            $weight2 = $weight * 1.25;
+
+            array_push($sodium,(($tsodium/2000)*100));
+            array_push($potassium,(($tpotassium/3500)*100));
+            array_push($phosphate,(($tphosp/800)*100));
+            array_push($protein,(($tprotein/$weight2)*100));
+            array_push($energy,(($tenergy/$weight1)*100));
+            array_push($fluid,(($tfluid/500)*100));
+
+        }
+        $test  = array("name"=>"sodium","data"=>$sodium);
+        $test2  = array("name"=>"potasium","data"=>$potassium);
+        $test3  = array("name"=>"phosphate","data"=>$phosphate);
+        $test4  = array("name"=>"protein","data"=>$protein);
+        $test5  = array("name"=>"energy","data"=>$energy);
+        $test6  = array("name"=>"fluid","data"=>$fluid);
+        $dataG = array($test,$test2,$test3,$test4, $test5, $test6);
+        // return response()->json($dataG);
+        $dataG = json_encode($dataG);
+
+        return view('user.show',compact('users', 'detail','report','dataG'));
     }
+    
+
 }
+
+

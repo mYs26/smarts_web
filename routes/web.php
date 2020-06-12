@@ -43,3 +43,6 @@ Route::get('/searchfood', 'FoodController@searchFood')->middleware('is_admin');
 
 //search bar user
 Route::get('/searchuser', 'UserController@searchUser')->middleware('is_admin');
+
+//data for graph
+Route::get('/user/{user}', 'UserController@graphData')->middleware('is_admin');

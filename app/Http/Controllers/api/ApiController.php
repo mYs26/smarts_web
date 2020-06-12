@@ -111,7 +111,9 @@ class ApiController extends Controller
         $user = $request->user();
         foreach ($user->foods as $food) {
             $s = $food->pivot->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
-            $a = $s->where('user_id', $user->id);
+            $a = $s->where('user_id', $user->id)->groupBy(function($tarikh) {
+                return Carbon::parse($tarikh->created_at)->format('d'); // grouping by days
+            });
         }
         //return all the food that taken that day
         return response()->json($a);
