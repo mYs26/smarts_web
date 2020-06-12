@@ -6,8 +6,8 @@
     </div> --}}
     <div class="container">
         <div class="card">
-            <div class="card-header">
-                <p>{{$food->food_name}}</p>
+            <div class="card-header" style="text-align: center">
+                <h3><b>{{$food->food_name}}</b></h3>
             </div>
             <div class="card-body">
                 <div style="text-align: center; padding:20px;">

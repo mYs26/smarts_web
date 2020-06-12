@@ -6,7 +6,7 @@
             <h2 style="text-align: center">Food Library List</h2>
             <div>
               <div class="col-md-4" style="float: left">
-                <form action="/search" method="GET">
+                <form action="/searchfood" method="GET">
                   <div class="input-group">
                     <input type="search" name="search" class="form-control">
                     <span class="input-group-prepend">

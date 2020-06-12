@@ -107,10 +107,26 @@ class UserController extends Controller
     }
 
     //search function
-    public function search(Request $request)
+    public function searchUser(Request $request)
     {
         $search = $request->get('search');
         $users = User::where('name', 'like', '%'.$search.'%')->paginate(5);
         return view ('user.index', ['users' => $users]);
+    }
+
+    public function graphData(Request $request)
+    {
+        $user = User::find(2);
+        $date = Carbon::today()->subDays(7);
+        foreach($user->foods as $food) {
+            $all = $food->pivot
+                        ->where('created_at', '>', $date)
+                        ->where('user_id', $user->id)
+                        ->get()
+                        ->groupBy(function($date) {
+                            return Carbon::parse($date->created_at)->format('d'); // grouping by days
+                        });
+        }
+        dd($all);
     }
 }

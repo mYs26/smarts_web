@@ -210,7 +210,7 @@ class FoodController extends Controller
     }
 
     //search function
-    public function search(Request $request)
+    public function searchFood(Request $request)
     {
         $search = $request->get('search');
         $foods = Food::where('food_name', 'like', '%'.$search.'%')->paginate(5);

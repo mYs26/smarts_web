@@ -39,7 +39,7 @@ Route::get('admin/home','HomeController@adminHome')->name('admin.home')->middlew
 Route::get('/user/{user_id}/{report_id}', 'UserController@showReport')->middleware('is_admin');
 
 //search bar food
-Route::get('/search', 'FoodController@search')->middleware('is_admin');
+Route::get('/searchfood', 'FoodController@searchFood')->middleware('is_admin');
 
 //search bar user
-Route::get('/search', 'UserController@search')->middleware('is_admin');
+Route::get('/searchuser', 'UserController@searchUser')->middleware('is_admin');

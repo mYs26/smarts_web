@@ -5,7 +5,7 @@
         <div class="content-wrap">
             <h3>Users Index</h3>
             <div class="col-md-4" style="text-align: center">
-                <form action="/search" method="GET">
+                <form action="/searchuser" method="GET">
                   <div class="input-group">
                     <input type="search" name="search" class="form-control">
                     <span class="input-group-prepend">

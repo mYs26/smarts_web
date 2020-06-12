@@ -92,5 +92,6 @@
             SMARTS D4D ADMIN WEB SYSTEM
         </footer> --}}
     </div>
+    @yield('footer')
 </body>
 </html>
