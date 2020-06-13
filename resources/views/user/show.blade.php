@@ -16,7 +16,12 @@
             </div>
             <hr>
             <div class="card-body">
-                <div id="chartcontainer" style="width:100%; height:400px;"></div>
+                @if (count($dataG) > 0)
+                    <div id="chartcontainer" style="width:100%; height:400px;"></div>
+                @else
+                    <p>No Data Yet</p>
+                @endif
+                
                 
 
                 <hr>
@@ -44,8 +49,7 @@
         //nanti dalam ni hg declare satu variable nama data 
         
         document.addEventListener('DOMContentLoaded', function(){
-            var mydata = [ {name:'test',data: [1,2,3,4,5,6,7]}];
-            mydata = {!! $dataG !!}; //pastu guna cara ni nk passing
+            var mydata = {!! json_encode($dataG) !!}; //pastu guna cara ni nk passing
             console.log("test:",mydata)
             
             //aku rasa chart load dulu sebelom console log sbbtu dia xdpt data sbb variable mydata tu kosong lg kot
