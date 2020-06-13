@@ -167,12 +167,12 @@ class UserController extends Controller
             $weight1 = $weight * 35;
             $weight2 = $weight * 1.25;
 
-            array_push($sodium,(($tsodium/2000)*100));
-            array_push($potassium,(($tpotassium/3500)*100));
-            array_push($phosphate,(($tphosp/800)*100));
-            array_push($protein,(($tprotein/$weight2)*100));
-            array_push($energy,(($tenergy/$weight1)*100));
-            array_push($fluid,(($tfluid/500)*100));
+            array_push($sodium,round((($tsodium/2000)*100),2));
+            array_push($potassium,round((($tpotassium/3500)*100),2));
+            array_push($phosphate,round((($tphosp/800)*100),2));
+            array_push($protein,round((($tprotein/$weight2)*100),2));
+            array_push($energy,round((($tenergy/$weight1)*100),2));
+            array_push($fluid,round((($tfluid/500)*100),2));
 
         }
         $test  = array("name"=>"sodium","data"=>$sodium);
