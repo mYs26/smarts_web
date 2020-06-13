@@ -16,10 +16,7 @@
             </div>
             <hr>
             <div class="card-body">
-                <div class="clearfix">
-                    <div id="chartol" ></div>
-                    
-                </div>
+                <div id="chartcontainer" style="width:100%; height:400px;"></div>
                 
 
                 <hr>
@@ -41,56 +38,63 @@
 @endsection
 
 @section('footer')
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    
 
-<script>
-    //nanti dalam ni hg declare satu variable nama data 
-    var user =  {!! $dataG !!}; //pastu guna cara ni nk passing
-    console.log("test:",user)
-    Highcharts.chart('chartol', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Weekly User Intake'
-        },
-        subtitle: {
-            text: 'Source: smarts d4d'
-        },
-        xAxis: {
-            categories: [
-                'Mon',
-                'Tue',
-                'Wed',
-                'Thu',
-                'Fri',
-                'Sat',
-                'Sun'
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            max: 100,
-            title: {
-                text: 'Percentage (%)'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: user
-    });
-</script>
+    <script>
+        //nanti dalam ni hg declare satu variable nama data 
+        
+        document.addEventListener('DOMContentLoaded', function(){
+            var mydata = [ {name:'test',data: [1,2,3,4,5,6,7]}];
+            mydata = {!! $dataG !!}; //pastu guna cara ni nk passing
+            console.log("test:",mydata)
+            
+            //aku rasa chart load dulu sebelom console log sbbtu dia xdpt data sbb variable mydata tu kosong lg kot
+            Highcharts.chart('chartcontainer', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Weekly User Intake'
+                },
+                subtitle: {
+                    text: 'Source: smarts d4d'
+                },
+                xAxis: {
+                    categories: [
+                        'Mon',
+                        'Tue',
+                        'Wed',
+                        'Thu',
+                        'Fri',
+                        'Sat',
+                        'Sun'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'Percentage (%)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: mydata
+            });
+            
+        });
+    </script>
 @endsection

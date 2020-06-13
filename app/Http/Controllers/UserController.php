@@ -121,8 +121,8 @@ class UserController extends Controller
         $users = User::find($id);
         $detail = User::find($id)->detail;
         $report = User::find($id)->reports()->orderBy('created_at', 'desc')->get();
-        
-        $date = Carbon::today()->subDays(7);
+        // $x = Carbon::today()->subDays(6);
+        $date = Carbon::today()->subDays(6);
         $all = array();
         foreach($users->foods as $food) {
             $all = $food->pivot

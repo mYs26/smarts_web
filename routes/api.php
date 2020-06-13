@@ -33,5 +33,6 @@ Route::group([
         Route::post('patientreport', 'api\ApiController@patientReport');
         Route::get('userdietlist', 'api\ApiController@userDietList');
         Route::post('deletedietlist', 'api\ApiController@deleteUserDiet');
+        Route::get('userdietpercent', 'api\ApiController@userDietPercent');
     });
 });
