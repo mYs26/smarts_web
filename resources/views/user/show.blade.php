@@ -30,7 +30,8 @@
                     @if (count($report) > 0)
                         @foreach ($report as $item)
                         <div class="well">
-                            User report at : <a href="/user/{{$users->id}}/{{$item->id}}">{{$item->created_at}}</a>
+                            User report at : <a href="/user/{{$users->id}}/{{$item->id}}">{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y')}}
+                            </a>
                         </div>
                         @endforeach
                     @else
@@ -77,10 +78,16 @@
                 },
                 yAxis: {
                     min: 0,
-                    max: 100,
+                    max: 150,
                     title: {
                         text: 'Percentage (%)'
-                    }
+                    },
+                    plotLines: [{
+                        color: '#FF0000',
+                        dashStyle: 'shortdash',
+                        width: 2,
+                        value: 100
+                    }]
                 },
                 tooltip: {
                     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',

@@ -141,45 +141,67 @@ class ApiController extends Controller
         //return all the food that taken that day
         // return response()->json($a);
 
-        $sodium = 0;
-        $potassium = 0;
-        $phosphate = 0;
-        $protein = 0;
-        $energy = 0;
-        $fluid = 0;
-        //loop mknn
-        foreach($a as $item)
-        {
-            $sodium += $item->sodium;
-            $potassium += $item->potassium;
-            $phosphate += $item->phosphate;
-            $protein += $item->protein;
-            $energy += $item->energy;
-            $fluid += $item->fluid;
+        //validation
+        if ($a) {
+            # code...
+            $sodium = 0;
+            $potassium = 0;
+            $phosphate = 0;
+            $protein = 0;
+            $energy = 0;
+            $fluid = 0;
+            //loop mknn
+            foreach($a as $item)
+            {
+                $sodium += $item->sodium;
+                $potassium += $item->potassium;
+                $phosphate += $item->phosphate;
+                $protein += $item->protein;
+                $energy += $item->energy;
+                $fluid += $item->fluid;
+            }
+            //get weight from report
+            $reportW = $user->reports()->orderBy('created_at', 'desc')->first();
+            if ($reportW) {
+                # code...
+                $weight = $reportW->weight;
+                $weight1 = $weight * 35;
+                $weight2 = $weight * 1.25;
+        
+                //get percentage
+                $sodpercent = number_format(($sodium/2000)*100);
+                $potpercent = number_format(($potassium/3500)*100);
+                $phospercent = number_format(($phosphate/800)*100);
+                $propercent = number_format(($protein/$weight2)*100);
+                $enerpercent = number_format(($energy/$weight1)*100);
+                $fluidpercent = number_format(($fluid/500)*100);
+        
+                $sod = array("name"=>"sodium", "data"=>$sodpercent);
+                $pot = array("name"=>"potassium", "data"=>$potpercent);
+                $phos = array("name"=>"phosphate", "data"=>"$phospercent");
+                $pro = array("name"=>"protein", "data"=>"$propercent");
+                $ener = array("name"=>"energy", "data"=>"$enerpercent");
+                $water = array("name"=>"fluid", "data"=>"$fluidpercent");
+                $data = array($sod, $pot, $phos, $pro, $ener, $water, $water);
+        
+                return response()->json($data);
+            } else {
+                # code...
+                return response()->json([
+                    'message' => 'no user assessment report yet'
+                ]);
+            }
+            
+            
+
+        } else {
+            # code...
+            return response()->json([
+                'message' => 'Food Data Not Entered yet'
+            ], 401);
         }
-        //get weight from report
-        $reportW = $user->reports()->orderBy('created_at', 'desc')->first();
-        $weight = $reportW->weight;
-        $weight1 = $weight * 35;
-        $weight2 = $weight * 1.25;
+        
 
-        //get percentage
-        $sodpercent = number_format(($sodium/2000)*100);
-        $potpercent = number_format(($potassium/3500)*100);
-        $phospercent = number_format(($phosphate/800)*100);
-        $propercent = number_format(($protein/$weight2)*100);
-        $enerpercent = number_format(($energy/$weight1)*100);
-        $fluidpercent = number_format(($fluid/500)*100);
-
-        $sod = array("name"=>"sodium", "data"=>$sodpercent);
-        $pot = array("name"=>"potassium", "data"=>$potpercent);
-        $phos = array("name"=>"phosphate", "data"=>"$phospercent");
-        $pro = array("name"=>"protein", "data"=>"$propercent");
-        $ener = array("name"=>"energy", "data"=>"$enerpercent");
-        $water = array("name"=>"fluid", "data"=>"$fluidpercent");
-        $data = array($sod, $pot, $phos, $pro, $ener, $water, $water);
-
-        return response()->json($data);
     }
 
 }
