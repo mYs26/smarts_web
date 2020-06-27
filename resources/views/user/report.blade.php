@@ -42,6 +42,21 @@
                     <p>{{$data->urine_analysis}}</p>
                     <hr>
                 </div>
+                <div>
+                    <h5>Skin Condition</h5>
+                    <p>{{$data->skin_condition}}</p>
+                    <hr>
+                </div>
+                <div>
+                    <h5>Appetite</h5>
+                    <p>{{$data->appetite}}</p>
+                    <hr>
+                </div>
+                <div>
+                    <h5>GI symptoms</h5>
+                    <p>{{$data->gi_symptom}}</p>
+                    <hr>
+                </div>
                 <p>Assessment By : {{$data->doctor_name}}</p>
                 <small>Assessment Date : {{$data->created_at}}</small>
 

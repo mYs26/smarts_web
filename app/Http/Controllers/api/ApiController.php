@@ -23,13 +23,6 @@ class ApiController extends Controller
     //report assessment api
     public function patientReport (Request $request) 
     {
-        //validator input
-        // $request->validate([
-        //     'user_id' => 'required',
-        //     'doctor_name' => 'required|string',
-        //     'weight' => 'required',
-        //     'height' => 'required'
-        // ]);
         
         $doctor = $request->user()->name;
 
@@ -55,6 +48,9 @@ class ApiController extends Controller
         $report->urine_analysis = $request->urine_analysis;
         $report->bp = $request->bp;
         $report->ktv = $request->ktv;
+        $report->skin_condition = $request->skin;
+        $report->appetite = $request->appetite;
+        $report->gi_symptom = $request->symptom;
         $report->doctor_name = $doctor;
 
         $report->save();
@@ -113,8 +109,18 @@ class ApiController extends Controller
             $s = $food->pivot->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
             $a = $s->where('user_id', $user->id);
         }
-        //return all the food that taken that day
-        return response()->json($a);
+        if ($a) {
+            # code...
+            //return all the food that taken that day
+            return response()->json($a);
+        } else {
+            # code...
+            return response()->json([
+                'message' => 'no food entered yet'
+            ]);
+        }
+        
+        
     }
 
     public function deleteUserDiet (Request $request) {

@@ -24,7 +24,9 @@ Route::get('/', function () {
 Route::resource('food', 'FoodController')->middleware('is_admin');
 
 //auth route web
-Auth::routes();
+Auth::routes([
+    'register' => false
+]);
 
 //home page
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');

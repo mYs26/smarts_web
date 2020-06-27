@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <p>Create a New Food</p>
+                <p>Edit Existing Food</p>
             </div>
             <div class="card-subtitle">
                 <div style="text-align: center; padding:20px;">

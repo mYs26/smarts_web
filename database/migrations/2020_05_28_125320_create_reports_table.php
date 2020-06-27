@@ -31,6 +31,9 @@ class CreateReportsTable extends Migration
             $table->longText('urine_analysis');
             $table->float('bp');
             $table->float('ktv');
+            $table->longText('skin_condition');
+            $table->longText('appetite');
+            $table->longText('gi_symptom');
             $table->string('doctor_name');
             $table->timestamps();
         });
