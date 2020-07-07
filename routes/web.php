@@ -20,30 +20,54 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//food routes
+/*
+    food routes for CRUD functions:
+    1. index
+    2. create
+    3. store
+    4. show
+    5. edit
+    6. update
+    7. destroy
+*/
 Route::resource('food', 'FoodController')->middleware('is_admin');
 
-//auth route web
+/*
+    routes for web authentication:
+    1. login
+    2. register
+    3. reset password
+*/
 Auth::routes([
-    'register' => false
+    'register' => true
+    //set register to false for disable register function
 ]);
 
 //home page
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-//route for patients
+/*
+    patients/users routes for CRUD functions:
+    1. index
+    2. create
+    3. store
+    4. show
+    5. edit
+    6. update
+    7. destroy
+*/
 Route::resource('user', 'UserController')->middleware('is_admin');
 
-//admin route
+//admin redirect after login route
 Route::get('admin/home','HomeController@adminHome')->name('admin.home')->middleware('is_admin');
 
-//report show
+//show particular user report
 Route::get('/user/{user_id}/{report_id}', 'UserController@showReport')->middleware('is_admin');
 
-//search bar food
+//search bar for food module
 Route::get('/searchfood', 'FoodController@searchFood')->middleware('is_admin');
 
-//search bar user
+//search bar for user module
 Route::get('/searchuser', 'UserController@searchUser')->middleware('is_admin');
 
 //data for graph

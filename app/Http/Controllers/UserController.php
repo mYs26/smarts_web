@@ -13,14 +13,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //display all data
     public function index()
     {
         $users = User::where('is_admin', 0)->get();
-
-        // dd($user);
         //go to patient list
         return view('user.index')->with('users', $users);
-        // return User::find(1)->detail;
     }
 
     /**
@@ -115,6 +114,7 @@ class UserController extends Controller
         return view ('user.index', ['users' => $users]);
     }
 
+    //get data from DB send to graph to view
     public function graphData($id)
     {
         // $user = User::find($id);

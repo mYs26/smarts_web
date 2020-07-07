@@ -11,6 +11,7 @@ class Detail extends Model
     // protected $table='details';
     //
 
+    //relationship with user (1+1)
     public function user()
     {
         return $this->belongsTo('App\User');

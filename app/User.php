@@ -38,16 +38,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //relationship with detail (1+1)
     public function detail()
     {
         return $this->hasOne('App\Detail');
     }
 
+    //relationship with food (M+M)
     public function foods()
     {
         return $this->belongsToMany('App\Food')->withPivot('intake_amount', 'energy', 'protein', 'fluid', 'potassium', 'phosphate', 'sodium')->withTimestamps();
     }
 
+    //relationsihp with report (1+M)
     public function reports()
     {
         return $this->hasmany('App\Report');

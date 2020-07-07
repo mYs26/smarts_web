@@ -21,18 +21,18 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'auth'
 ], function () {
-    Route::post('login', 'Auth\AuthController@login')->name('login');
-    Route::post('register', 'Auth\AuthController@register');
+    Route::post('login', 'Auth\AuthController@login')->name('login');           // api for login
+    Route::post('register', 'Auth\AuthController@register');                    // api for register (patient only)
     Route::group([
-      'middleware' => 'auth:api'
+      'middleware' => 'auth:api'                                                // middleware for other function to access system via api
     ], function() {
-        Route::get('logout', 'Auth\AuthController@logout');
-        Route::get('user', 'Auth\AuthController@user');
-        Route::get('foodlist', 'api\ApiController@foodList');
-        Route::post('userdiet', 'api\ApiController@userDiet');
-        Route::post('patientreport', 'api\ApiController@patientReport');
-        Route::get('userdietlist', 'api\ApiController@userDietList');
-        Route::post('deletedietlist', 'api\ApiController@deleteUserDiet');
-        Route::get('userdietpercent', 'api\ApiController@userDietPercent');
+        Route::get('logout', 'Auth\AuthController@logout');                     // api for logout
+        Route::get('user', 'Auth\AuthController@user');                         // api for user detail
+        Route::get('foodlist', 'api\ApiController@foodList');                   // api for food library list
+        Route::post('userdiet', 'api\ApiController@userDiet');                  // api for user daily intake (input)
+        Route::post('patientreport', 'api\ApiController@patientReport');        // api for HCP enter patient dialysis report
+        Route::get('userdietlist', 'api\ApiController@userDietList');           // api for user show daily food intake
+        Route::post('deletedietlist', 'api\ApiController@deleteUserDiet');      // api for user delete food from daily intake
+        Route::get('userdietpercent', 'api\ApiController@userDietPercent');     // api for user show percentage of daily nutrition intake
     });
 });
